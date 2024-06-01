@@ -13,7 +13,7 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler(UniqueResourceAlreadyExists.class)
-    public String handleNotFound(UniqueResourceAlreadyExists ex) {
+    public String handleAlreadyExist(UniqueResourceAlreadyExists ex) {
         return ex.getMessage();
     }
 
