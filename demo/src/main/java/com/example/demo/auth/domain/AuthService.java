@@ -1,10 +1,10 @@
 package com.example.demo.auth.domain;
 
-import com.proyecto.utec_roomie.request.EmailService;
 import com.example.demo.auth.dto.JwtAuthResponse;
 import com.example.demo.auth.dto.LoginReq;
 import com.example.demo.auth.dto.RegisterReq;
 import com.example.demo.config.JwtService;
+import com.example.demo.events.EmailService;
 import com.example.demo.exceptions.UserAlreadyExistException;
 import com.example.demo.user.domain.User;
 import com.example.demo.user.infrastructure.UserRepository;
