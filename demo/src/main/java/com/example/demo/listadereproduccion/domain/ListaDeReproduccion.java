@@ -20,8 +20,6 @@ public class ListaDeReproduccion {
 
     private String nombre;
 
-    private Integer idUser;
-
     private Date fechaDeCreacion;
 
     @ManyToOne(fetch = FetchType.EAGER)
