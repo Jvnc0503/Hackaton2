@@ -1,9 +1,10 @@
 package com.example.demo.listadereproduccion.domain;
 
+import com.example.demo.cancion.domain.Cancion;
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -14,7 +15,7 @@ public class ListaDeReproduccion {
 
     private String nombre;
 
-    private Integer idUsuario;
+    private Integer idUser;
 
     private Date fechaDeCreacion;
 

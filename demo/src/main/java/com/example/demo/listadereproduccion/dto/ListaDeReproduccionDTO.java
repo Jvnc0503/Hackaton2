@@ -1,9 +1,10 @@
 package com.example.demo.listadereproduccion.dto;
 import java.util.Date;
-import jakarta.persistence.*;
+import java.util.List;
+
+import com.example.demo.cancion.domain.Cancion;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 public class ListaDeReproduccionDTO {
