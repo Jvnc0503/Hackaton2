@@ -16,7 +16,7 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idAlbum;
 
-    String nombre;
+    private String nombre;
 
-    Date fechaDeLanzamiento;
+    private Date fechaDeLanzamiento;
 }
