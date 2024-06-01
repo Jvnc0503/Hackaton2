@@ -55,20 +55,23 @@ public class AuthService {
         return response;
     }
 
-    public JwtAuthResponse register(RegisterReq req){
+    public JwtAuthResponse register(RegisterReq req) {
         Optional<User> user = userRepository.findByEmail(req.getEmail());
         if (user.isPresent()) throw new UserAlreadyExistException("Email is already registered");
-
         Usuario usuario = new Usuario();
         usuario.setEmail(req.getEmail());
         usuario.setName(req.getName());
         usuario.setPassword(passwordEncoder.encode(req.getPassword()));
-        usuario.setRole(Role.USER);
+        if(req.getAdmin()){
+            usuario.setRole(Role.ADMIN);
+        }else {
+            usuario.setRole(Role.USER);
+        }
         usuario.setFechaDeRegistro(Date.from(Instant.now()));
         userRepository.save(usuario);
         JwtAuthResponse response = new JwtAuthResponse();
         response.setToken(jwtService.generateToken(usuario));
-        emailService.sendSimpleMessage(req.getEmail(),"Gracias por registrarte!", req.getName());
+        emailService.sendSimpleMessage(req.getEmail(), "Gracias por registrarte!", req.getName());
         return response;
         }
     }
