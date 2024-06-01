@@ -1,5 +1,4 @@
 package com.example.demo.events;
-import com.proyecto.utec_roomie.request.EmailService
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
