@@ -11,6 +11,7 @@ public class Cancion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idSong;
 
+
     private String titulo;
 
     private Integer idAlbum;
