@@ -11,6 +11,7 @@ public class EmailListener {
 
     private final EmailService emailService;
 
+
     public EmailListener(EmailService emailService) {
         this.emailService = emailService;
     }
