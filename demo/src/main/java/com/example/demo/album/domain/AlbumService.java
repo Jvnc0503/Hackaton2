@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class AlbumService {
 
-    @Autowired
     private final AlbumRepository albumRepository;
 
     public AlbumService(AlbumRepository albumRepository) {
@@ -38,7 +37,7 @@ public class AlbumService {
         return albumDTO;
     }
 
-    public void deleteAlbum(Integer id) {
+    public void deleteAlbumById(Integer id) {
         albumRepository.deleteById(id);
     }
 
