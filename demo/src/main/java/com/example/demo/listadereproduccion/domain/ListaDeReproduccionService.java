@@ -1,5 +1,7 @@
 package com.example.demo.listadereproduccion.domain;
 
+import com.example.demo.auth.utils.AuthorizationUtils;
+import com.example.demo.events.EmailService;
 import com.example.demo.exceptions.ResourceNotFoundException;
 import com.example.demo.listadereproduccion.dto.ListaDeReproduccionDTO;
 import com.example.demo.listadereproduccion.infrastructure.ListaDeReproduccionRepository;
@@ -13,11 +15,15 @@ public class ListaDeReproduccionService {
     private final ListaDeReproduccionRepository listaDeReproduccionRepository;
     private final ModelMapper modelMapper;
     private final UsuarioRepository usuarioRepository;
+    private final AuthorizationUtils authorizationUtils;
+    private final EmailService emailService;
 
-    public ListaDeReproduccionService(ListaDeReproduccionRepository listaDeReproduccionRepository, UsuarioRepository usuarioRepository) {
+    public ListaDeReproduccionService(ListaDeReproduccionRepository listaDeReproduccionRepository, UsuarioRepository usuarioRepository, AuthorizationUtils authorizationUtils, EmailService emailService) {
         this.listaDeReproduccionRepository = listaDeReproduccionRepository;
         this.modelMapper = new ModelMapper();
         this.usuarioRepository = usuarioRepository;
+        this.authorizationUtils = authorizationUtils;
+        this.emailService = emailService;
     }
 
     public List<ListaDeReproduccionDTO> getUserPlaylists(int idUser) {
@@ -31,9 +37,11 @@ public class ListaDeReproduccionService {
     }
 
     public String createListaDeReproduccion(Integer idUser, ListaDeReproduccionDTO listaDeReproduccionDTO) {
+        String usermail = authorizationUtils.getCurrentUserEmail();
         ListaDeReproduccion listaDeReproduccion = modelMapper.map(listaDeReproduccionDTO, ListaDeReproduccion.class);
         listaDeReproduccion.setUsuario(usuarioRepository.findById(idUser).get());
         listaDeReproduccionRepository.save(listaDeReproduccion);
+        emailService.sendSimpleMessage(usermail,"Nueva PlayList"," Tu nueva playlist facha.ad");
         return "/users/"+idUser+"/playlists/"+listaDeReproduccion.getIdPlaylist();
     }
 
