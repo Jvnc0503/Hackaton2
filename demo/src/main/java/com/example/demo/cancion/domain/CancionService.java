@@ -29,13 +29,12 @@ public class CancionService {
     public void updateCancion(int id, CancionDto cancionDto) {
         Cancion cancion = cancionRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Cancion not found"));
         cancion.setTitulo(cancionDto.getTitulo());
-        cancion.setIdArtist(cancionDto.getIdArtist());
         cancion.setIdAlbum(cancionDto.getIdAlbum());
         cancion.setDuracion(cancionDto.getDuracion());
         cancionRepository.save(cancion);
     }
 
-    public void deleteCancion(int id) {
+    public void deleteCancion(Integer id) {
         cancionRepository.deleteById(id);
     }
 }

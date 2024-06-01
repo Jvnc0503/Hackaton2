@@ -32,7 +32,7 @@ public class AuthService {
     private final EmailService emailService;
 
     @Autowired
-    public AuthService(UserRepository<User> userRepository, JwtService jwtService, PasswordEncoder passwordEncoder, EmailService emailService, UserDetailsServiceAutoConfiguration userDetailsServiceAutoConfiguration) {
+    public AuthService(UserRepository<User> userRepository, JwtService jwtService, PasswordEncoder passwordEncoder, EmailService emailService) {
         this.userRepository = userRepository;
         this.jwtService = jwtService;
         this.passwordEncoder = passwordEncoder;
@@ -68,8 +68,7 @@ public class AuthService {
         userRepository.save(usuario);
         JwtAuthResponse response = new JwtAuthResponse();
         response.setToken(jwtService.generateToken(usuario));
-        emailService.sendRegisterMessage(req.getEmail(),"Gracias por registrarte!",
-                    req.getName());
-            return response;
+        emailService.sendRegisterMessage(req.getEmail(),"Gracias por registrarte!", req.getName());
+        return response;
         }
     }
