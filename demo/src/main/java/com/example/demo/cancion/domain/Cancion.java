@@ -1,5 +1,6 @@
 package com.example.demo.cancion.domain;
 
+import com.example.demo.album.domain.Album;
 import com.example.demo.artista.domain.Artista;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -14,11 +15,12 @@ public class Cancion {
 
     private String titulo;
 
-    private Integer idAlbum;
-
     private Integer duracion;
 
     @ManyToOne
     @JoinColumn(name = "artistaID")
     private Artista artista;
+
+    @ManyToOne
+    private Album album;
 }
