@@ -10,5 +10,5 @@ public class RegisterReq {
     private String name;
     private String email;
     private String password;
-    private Boolean isAnfitrion=false;
+    private Boolean admin=false ;
 }

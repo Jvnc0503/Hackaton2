@@ -28,7 +28,7 @@ public class AuthorizationUtils {
         String role = userDetails.getAuthorities().toArray()[0].toString();
         User student= userService.findByEmail(username, role);
 
-        return student.getId().equals(id);
+        return student.getIdUser().equals(id);
     }
 
     public String getCurrentUserEmail() {
