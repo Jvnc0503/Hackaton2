@@ -29,7 +29,6 @@ public class AuthService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
-    private final EmailService emailService;
 
     @Autowired
     public AuthService(UserRepository<User> userRepository, JwtService jwtService, PasswordEncoder passwordEncoder, EmailService emailService) {
@@ -37,7 +36,6 @@ public class AuthService {
         this.jwtService = jwtService;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = new ModelMapper();
-        this.emailService = emailService;
     }
 
     public JwtAuthResponse login(LoginReq req) {
@@ -68,7 +66,6 @@ public class AuthService {
         userRepository.save(usuario);
         JwtAuthResponse response = new JwtAuthResponse();
         response.setToken(jwtService.generateToken(usuario));
-        emailService.sendRegisterMessage(req.getEmail(),"Gracias por registrarte!", req.getName());
         return response;
         }
     }
