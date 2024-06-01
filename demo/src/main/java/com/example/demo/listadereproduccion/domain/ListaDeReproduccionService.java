@@ -9,6 +9,9 @@ import com.example.demo.usuario.domain.Usuario;
 import com.example.demo.usuario.infrastructure.UsuarioRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -50,7 +53,7 @@ public class ListaDeReproduccionService {
     public void updateListaDeReproduccion(int id, ListaDeReproduccionDTO listaDeReproduccionDTO) {
         ListaDeReproduccion listaDeReproduccion = listaDeReproduccionRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Lista de reproduccion no encontrada"));
         listaDeReproduccion.setNombre(listaDeReproduccionDTO.getNombre());
-        listaDeReproduccion.setFechaDeCreacion(listaDeReproduccionDTO.getFechaDeCreacion());
+        listaDeReproduccion.setFechaDeCreacion(Date.from(Instant.now()));
         listaDeReproduccion.setCanciones(listaDeReproduccionDTO.getCanciones());
         listaDeReproduccionRepository.save(listaDeReproduccion);
     }

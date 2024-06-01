@@ -11,7 +11,5 @@ public class ListaDeReproduccionDTO {
     @NotNull
     private String nombre;
     @NotNull
-    private Date fechaDeCreacion;
-    @NotNull
     private List<Cancion> canciones;
 }
