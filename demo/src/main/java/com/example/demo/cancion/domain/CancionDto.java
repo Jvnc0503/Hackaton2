@@ -5,12 +5,8 @@ import lombok.Data;
 
 @Data
 public class CancionDto {
-    @NotNull
-    String titulo;
-    @NotNull
-    int idArtist;
-    @NotNull
-    int idAlbum;
-    @NotNull
-    int duracion;
+    private String titulo;
+    private String nameArtist;
+    private String album;
+    private Integer duracion;
 }

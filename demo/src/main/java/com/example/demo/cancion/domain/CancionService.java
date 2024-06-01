@@ -5,6 +5,9 @@ import com.example.demo.exceptions.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CancionService {
     private final CancionRepository cancionRepository;
@@ -15,7 +18,7 @@ public class CancionService {
         this.modelMapper = new ModelMapper();
     }
 
-    public CancionDto getCancionInfo(int id) {
+    public CancionDto getCancionInfo(Integer id) {
         Cancion cancion = cancionRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Cancion not found"));
         return modelMapper.map(cancion, CancionDto.class);
     }
@@ -26,15 +29,28 @@ public class CancionService {
         return "/canciones/" + cancion.getIdSong();
     }
 
-    public void updateCancion(int id, CancionDto cancionDto) {
+    public void updateCancion(Integer id, CancionDto cancionDto) {
         Cancion cancion = cancionRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Cancion not found"));
         cancion.setTitulo(cancionDto.getTitulo());
-        cancion.setIdAlbum(cancionDto.getIdAlbum());
         cancion.setDuracion(cancionDto.getDuracion());
         cancionRepository.save(cancion);
     }
 
     public void deleteCancion(Integer id) {
         cancionRepository.deleteById(id);
+    }
+
+    public List<CancionDto> getAllCanciones() {
+        List<Cancion> canciones = cancionRepository.findAll();
+        List<CancionDto> cancionDtos = new ArrayList<>();
+        for (Cancion cancion : canciones) {
+            CancionDto c = new CancionDto();
+            c.setDuracion(cancion.getDuracion());
+            c.setTitulo(cancion.getTitulo());
+            c.setNameArtist(cancion.getArtista().getNombre());
+            c.setAlbum(cancion.getAlbum().getNombre());
+            cancionDtos.add(c);
+        }
+        return cancionDtos;
     }
 }
