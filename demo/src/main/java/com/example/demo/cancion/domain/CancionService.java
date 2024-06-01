@@ -23,19 +23,18 @@ public class CancionService {
     public String createCancion(CancionDto cancionDto) {
         Cancion cancion = modelMapper.map(cancionDto, Cancion.class);
         cancionRepository.save(cancion);
-        return "/canciones/" + cancion.getId();
+        return "/canciones/" + cancion.getIdSong();
     }
 
     public void updateCancion(int id, CancionDto cancionDto) {
         Cancion cancion = cancionRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Cancion not found"));
         cancion.setTitulo(cancionDto.getTitulo());
-        cancion.setArtistaId(cancionDto.getArtistaId());
         cancion.setIdAlbum(cancionDto.getIdAlbum());
         cancion.setDuracion(cancionDto.getDuracion());
         cancionRepository.save(cancion);
     }
 
-    public void deleteCancion(int id) {
+    public void deleteCancion(Integer id) {
         cancionRepository.deleteById(id);
     }
 }

@@ -1,9 +1,7 @@
 package com.example.demo.cancion.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.demo.artista.domain.Artista;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -11,13 +9,15 @@ import lombok.Data;
 public class Cancion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    private Integer idSong;
 
-    String titulo;
+    private String titulo;
 
-    int artistaId;
+    private Integer idAlbum;
 
-    int idAlbum;
+    private Integer duracion;
 
-    int duracion;
+    @ManyToOne
+    @JoinColumn(name = "artistaID")
+    private Artista artista;
 }
