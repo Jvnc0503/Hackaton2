@@ -3,6 +3,7 @@ package com.example.demo.listadereproduccion.domain;
 import com.example.demo.exceptions.ResourceNotFoundException;
 import com.example.demo.listadereproduccion.dto.ListaDeReproduccionDTO;
 import com.example.demo.listadereproduccion.infrastructure.ListaDeReproduccionRepository;
+import com.example.demo.usuario.infrastructure.UsuarioRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -11,10 +12,12 @@ import java.util.List;
 public class ListaDeReproduccionService {
     private final ListaDeReproduccionRepository listaDeReproduccionRepository;
     private final ModelMapper modelMapper;
+    private final UsuarioRepository usuarioRepository;
 
-    public ListaDeReproduccionService(ListaDeReproduccionRepository listaDeReproduccionRepository) {
+    public ListaDeReproduccionService(ListaDeReproduccionRepository listaDeReproduccionRepository, UsuarioRepository usuarioRepository) {
         this.listaDeReproduccionRepository = listaDeReproduccionRepository;
         this.modelMapper = new ModelMapper();
+        this.usuarioRepository = usuarioRepository;
     }
 
     public List<ListaDeReproduccionDTO> getUserPlaylists(int idUser) {
@@ -29,7 +32,7 @@ public class ListaDeReproduccionService {
 
     public String createListaDeReproduccion(Integer idUser, ListaDeReproduccionDTO listaDeReproduccionDTO) {
         ListaDeReproduccion listaDeReproduccion = modelMapper.map(listaDeReproduccionDTO, ListaDeReproduccion.class);
-        listaDeReproduccion.setIdUser(idUser);
+        listaDeReproduccion.setUsuario(usuarioRepository.findById(idUser).get());
         listaDeReproduccionRepository.save(listaDeReproduccion);
         return "/users/"+idUser+"/playlists/"+listaDeReproduccion.getIdPlaylist();
     }
