@@ -50,7 +50,7 @@ public class ListaDeReproduccionService {
 
     public String createListaDeReproduccion(Integer idUser, ListaDeReproduccionDTO listaDeReproduccionDTO) {
         String usermail = usuarioRepository.findById(idUser).get().getEmail();
-        ListaDeReproduccion listaDeReproduccion = modelMapper.map(listaDeReproduccionDTO, ListaDeReproduccion.class);
+        ListaDeReproduccion listaDeReproduccion = new ListaDeReproduccion();
         Usuario usuario = usuarioRepository.findById(idUser).orElseThrow(()->new ResourceNotFoundException("Usuario no encontrado"));
         listaDeReproduccion.setUsuario(usuario);
         List<Cancion> canciones = new ArrayList<>();
