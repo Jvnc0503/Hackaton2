@@ -1,19 +1,21 @@
 package com.example.demo;
 
 import com.example.demo.exceptions.ResourceNotFoundException;
-import com.example.demo.exceptions.UnauthorizeOperationException;
-import com.example.demo.exceptions.UniqueResourceAlreadyExists;
+import com.example.demo.exceptions.UnauthorizedOperationException;
+import com.example.demo.exceptions.UniqueResourceAlreadyExist;
+import com.example.demo.exceptions.UserAlreadyExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler(UniqueResourceAlreadyExists.class)
-    public String handleAlreadyExist(UniqueResourceAlreadyExists ex) {
+    @ExceptionHandler(UniqueResourceAlreadyExist.class)
+    public String handleAlreadyExist(UniqueResourceAlreadyExist ex) {
         return ex.getMessage();
     }
 
@@ -24,6 +26,12 @@ public class GlobalExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    @ExceptionHandler(UnauthorizeOperationException.class)
-    public String handleUnauthorize(UnauthorizeOperationException ex) {return ex.getMessage();}
+    @ExceptionHandler(UnauthorizedOperationException.class)
+    public String handleUnauthorizedOperation(UnauthorizedOperationException ex) {return ex.getMessage();}
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(UserAlreadyExistException.class)
+    public String handleUserAlreadyExist(UserAlreadyExistException ex) {
+        return ex.getMessage();
+    }
 }
