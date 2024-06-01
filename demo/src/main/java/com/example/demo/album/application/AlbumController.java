@@ -3,7 +3,6 @@ package com.example.demo.album.application;
 import com.example.demo.album.domain.AlbumService;
 import com.example.demo.album.dto.AlbumDTO;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @Data
 public class AlbumController {
 
-    @Autowired
     private final AlbumService albumService;
 
     public AlbumController(AlbumService albumService) {
@@ -37,7 +35,7 @@ public class AlbumController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEtiqueta(@PathVariable Integer id) {
-        albumService.deleteAlbum(id);
+        albumService.deleteAlbumById(id);
         return ResponseEntity.noContent().build();
     }
 
