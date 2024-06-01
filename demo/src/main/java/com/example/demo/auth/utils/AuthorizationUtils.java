@@ -15,6 +15,7 @@ public class AuthorizationUtils {
 
     private final UserService userService;
 
+    @Autowired
     public AuthorizationUtils(UserService userService) {
         this.userService = userService;
     }

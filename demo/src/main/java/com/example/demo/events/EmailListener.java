@@ -1,7 +1,7 @@
 package com.example.demo.events;
-import com.proyecto.utec_roomie.request.EmailService
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
@@ -12,6 +12,7 @@ public class EmailListener {
 
     private final EmailService emailService;
 
+    @Autowired
     public EmailListener(EmailService emailService) {
         this.emailService = emailService;
     }
