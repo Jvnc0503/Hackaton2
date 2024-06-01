@@ -7,13 +7,10 @@ import lombok.Data;
 public class CancionDto {
     @NotNull
     String titulo;
-
     @NotNull
-    int artistaId;
-
+    int idArtist;
     @NotNull
     int idAlbum;
-
     @NotNull
     int duracion;
 }

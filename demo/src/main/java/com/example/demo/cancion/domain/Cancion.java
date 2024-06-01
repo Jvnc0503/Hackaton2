@@ -11,11 +11,11 @@ import lombok.Data;
 public class Cancion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    int idSong;
 
     String titulo;
 
-    int artistaId;
+    int idArtist;
 
     int idAlbum;
 
