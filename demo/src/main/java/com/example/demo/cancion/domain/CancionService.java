@@ -48,7 +48,7 @@ public class CancionService {
             c.setDuracion(cancion.getDuracion());
             c.setTitulo(cancion.getTitulo());
             c.setNameArtist(cancion.getArtista().getNombre());
-            c.setAlbum(cancion.getAlbum().getNombre());
+            c.setAlbumID(cancion.getAlbum().getIdAlbum());
             cancionDtos.add(c);
         }
         return cancionDtos;

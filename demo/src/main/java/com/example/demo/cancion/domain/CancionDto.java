@@ -7,6 +7,6 @@ import lombok.Data;
 public class CancionDto {
     private String titulo;
     private String nameArtist;
-    private String album;
+    private Integer albumID;
     private Integer duracion;
 }
