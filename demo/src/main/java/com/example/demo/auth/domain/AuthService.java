@@ -1,6 +1,6 @@
 package com.example.demo.auth.domain;
 
-
+import com.proyecto.utec_roomie.request.EmailService;
 import com.example.demo.auth.dto.JwtAuthResponse;
 import com.example.demo.auth.dto.LoginReq;
 import com.example.demo.auth.dto.RegisterReq;
@@ -52,18 +52,15 @@ public class AuthService {
     public JwtAuthResponse register(RegisterReq req){
         Optional<User> user = userRepository.findByEmail(req.getEmail());
         if (user.isPresent()) throw new UserAlreadyExistException("Email is already registered");
-
+            //setear los atributos con register del usuario o lo q sea
+        userRepository.save(//usuario lo q sea )
             JwtAuthResponse response = new JwtAuthResponse();
-            response.setToken(jwtService.generateToken(anfitrion));
-            emailService.sendRegisterMessage(anfitrion.getEmail(),"Gracias por registrarte!",
-                    anfitrion.getNombre(),anfitrion.getApellido(),anfitrion.getRole().name());
+            response.setToken(jwtService.generateToken(//usuario));
+
+            emailService.sendRegisterMessage(req.getEmail(),"Gracias por registrarte!",
+                    req.getName());
             return response;
 
-            JwtAuthResponse response = new JwtAuthResponse();
-            response.setToken(jwtService.generateToken(roomie));
-            emailService.sendRegisterMessage(roomie.getEmail(),"Gracias por registrarte!",
-                    roomie.getNombre(),roomie.getApellido(),roomie.getRole().name());
-            return response;
         }
 
     }
