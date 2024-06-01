@@ -24,6 +24,7 @@ public class EmailService {
         this.templateEngine = templateEngine;
     }
 
+
     public void sendRegisterMessage(String emailto, String subject, String name){
         ZonedDateTime zonedDateTime = ZonedDateTime.now(ZoneId.systemDefault());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy 'a las' HH:mm 'hrs'", new Locale("es", "PE"));
