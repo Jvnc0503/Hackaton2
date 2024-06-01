@@ -2,6 +2,7 @@ package com.example.demo.user.domain;
 
 
 import com.example.demo.user.infrastructure.UserRepository;
+import com.example.demo.usuario.infrastructure.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,18 +13,16 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository<User> userRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    public UserService(UserRepository<User> userRepository) {
+    public UserService(UserRepository<User> userRepository, UsuarioRepository usuarioRepository) {
         this.userRepository = userRepository;
+        this.usuarioRepository = usuarioRepository;
     }
 
     public User findByEmail(String username, String tipo) {
         User user;
-        if (tipo.equals("ROLE_"))
-            user = .findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        else
-            user = .findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
+        user = usuarioRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return user;
     }
 

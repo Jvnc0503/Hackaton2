@@ -1,32 +1,19 @@
 package com.example.demo.events;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Component
-
 public class EmailListener {
 
-    private final EmailService emailService;
-
-
-    public EmailListener(EmailService emailService) {
-        this.emailService = emailService;
-    }
+    @Autowired
+    private EmailService emailService;
 
     @EventListener
     @Async
-    public void handleRegisterEmailEvent(RegisterMailEvent event) {
-        emailService.sendRegisterMessage(event.getEmail(), "Registro Exitoso",
-                event.getName());
+    public void handleEvents(PlaylistCreatedEvent event) {
+        emailService.sendSimpleMessage(event.getEmail(), "Playlist Creada", "Tu playlist ha sido creada!");
     }
-
-    @EventListener
-    @Async
-    public void handleUpdatePasswordMailEvent(UpdatePasswordMailEvent event) {
-        emailService.sendUpdatePasswordMessage(event.getEmail(),"Registro Exitoso", event.getName());
-    }
-
 }

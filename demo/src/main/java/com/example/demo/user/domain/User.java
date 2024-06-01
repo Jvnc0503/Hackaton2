@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,10 +19,7 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @Column(nullable = false)
-    private String name;
+    private Integer idUser;
 
     @Email
     @Column(nullable = false, unique = true)
@@ -29,10 +27,6 @@ public class User implements UserDetails {
 
     @Column(nullable = false)
     private String password;
-
-    @Size(min = 9,max = 9)
-    @Column(unique = true)
-    private String phone;
 
     @Column(nullable = false)
     private Role role;
