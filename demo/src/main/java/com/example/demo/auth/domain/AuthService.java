@@ -68,7 +68,7 @@ public class AuthService {
         userRepository.save(usuario);
         JwtAuthResponse response = new JwtAuthResponse();
         response.setToken(jwtService.generateToken(usuario));
-        emailService.sendRegisterMessage(req.getEmail(),"Gracias por registrarte!", req.getName());
+        emailService.sendSimpleMessage(req.getEmail(),"Gracias por registrarte!", req.getName());
         return response;
         }
     }

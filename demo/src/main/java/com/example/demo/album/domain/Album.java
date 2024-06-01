@@ -1,12 +1,11 @@
 package com.example.demo.album.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.demo.cancion.domain.Cancion;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,4 +18,7 @@ public class Album {
     private String nombre;
 
     private Date fechaDeLanzamiento;
+
+    @OneToMany
+    private List<Cancion> canciones;
 }

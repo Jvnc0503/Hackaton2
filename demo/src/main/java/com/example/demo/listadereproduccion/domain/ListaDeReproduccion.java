@@ -25,8 +25,7 @@ public class ListaDeReproduccion {
     @JoinColumn(name = "idUser")
     private Usuario usuario;
 
-//
-//    @OneToMany(mappedBy = "")
-//    private List<Cancion> canciones;
+    @OneToMany
+    private List<Cancion> canciones;
 
 }
