@@ -5,6 +5,7 @@ import com.example.demo.events.EmailService;
 import com.example.demo.exceptions.ResourceNotFoundException;
 import com.example.demo.listadereproduccion.dto.ListaDeReproduccionDTO;
 import com.example.demo.listadereproduccion.infrastructure.ListaDeReproduccionRepository;
+import com.example.demo.usuario.domain.Usuario;
 import com.example.demo.usuario.infrastructure.UsuarioRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -39,7 +40,8 @@ public class ListaDeReproduccionService {
     public String createListaDeReproduccion(Integer idUser, ListaDeReproduccionDTO listaDeReproduccionDTO) {
         String usermail = authorizationUtils.getCurrentUserEmail();
         ListaDeReproduccion listaDeReproduccion = modelMapper.map(listaDeReproduccionDTO, ListaDeReproduccion.class);
-        listaDeReproduccion.setUsuario(usuarioRepository.findById(idUser).get());
+        Usuario usuario = usuarioRepository.findById(idUser).orElseThrow(()->new ResourceNotFoundException("Usuario no encontrado"));
+        listaDeReproduccion.setUsuario(usuario);
         listaDeReproduccionRepository.save(listaDeReproduccion);
         emailService.sendSimpleMessage(usermail,"Nueva PlayList"," Tu nueva playlist facha.ad");
         return "/users/"+idUser+"/playlists/"+listaDeReproduccion.getIdPlaylist();
