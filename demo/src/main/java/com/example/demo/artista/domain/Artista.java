@@ -14,5 +14,4 @@ public class Artista {
     private Integer idArtist;
 
     private String nombre;
-
 }
