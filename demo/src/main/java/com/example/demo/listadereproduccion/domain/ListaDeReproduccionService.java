@@ -77,4 +77,25 @@ public class ListaDeReproduccionService {
     public void deleteListaDeReproduccion(int id) {
         listaDeReproduccionRepository.deleteById(id);
     }
+
+    public List<CancionDto> getCancionesFromPlaylist(int idPlaylist) {
+        ListaDeReproduccion listaDeReproduccion = listaDeReproduccionRepository.findById(idPlaylist).orElseThrow(()->new ResourceNotFoundException("Lista de reproduccion no encontrada"));
+        List<Cancion> canciones = listaDeReproduccion.getCanciones();
+        return canciones.stream().map(cancion -> modelMapper.map(cancion, CancionDto.class)).toList();
+    }
+
+    public String addCancionToPlaylist(int idPlaylist, int idCancion) {
+        ListaDeReproduccion listaDeReproduccion = listaDeReproduccionRepository.findById(idPlaylist).orElseThrow(()->new ResourceNotFoundException("Lista de reproduccion no encontrada"));
+        Cancion cancion = cancionRepository.findById(idCancion).orElseThrow(()->new ResourceNotFoundException("Cancion no encontrada"));
+        listaDeReproduccion.getCanciones().add(cancion);
+        listaDeReproduccionRepository.save(listaDeReproduccion);
+        return "/playlists/"+idPlaylist+"/songs";
+    }
+
+    public void deleteCancionFromPlaylist(int idPlaylist, int idCancion) {
+        ListaDeReproduccion listaDeReproduccion = listaDeReproduccionRepository.findById(idPlaylist).orElseThrow(()->new ResourceNotFoundException("Lista de reproduccion no encontrada"));
+        Cancion cancion = cancionRepository.findById(idCancion).orElseThrow(()->new ResourceNotFoundException("Cancion no encontrada"));
+        listaDeReproduccion.getCanciones().remove(cancion);
+        listaDeReproduccionRepository.save(listaDeReproduccion);
+    }
 }
