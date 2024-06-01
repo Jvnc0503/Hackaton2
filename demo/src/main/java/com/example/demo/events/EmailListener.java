@@ -1,0 +1,32 @@
+package com.example.demo.events;
+import com.proyecto.utec_roomie.request.EmailService
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
+
+@Component
+
+public class EmailListener {
+
+    private final EmailService emailService;
+
+    public EmailListener(EmailService emailService) {
+        this.emailService = emailService;
+    }
+
+    @EventListener
+    @Async
+    public void handleRegisterEmailEvent(RegisterMailEvent event) {
+        emailService.sendRegisterMessage(event.getEmail(), "Registro Exitoso",
+                event.getName());
+    }
+
+    @EventListener
+    @Async
+    public void handleUpdatePasswordMailEvent(UpdatePasswordMailEvent event) {
+        emailService.sendUpdatePasswordMessage(event.getEmail(),"Registro Exitoso", event.getName());
+    }
+
+}
