@@ -53,6 +53,11 @@ public class ListaDeReproduccionService {
         ListaDeReproduccion listaDeReproduccion = modelMapper.map(listaDeReproduccionDTO, ListaDeReproduccion.class);
         Usuario usuario = usuarioRepository.findById(idUser).orElseThrow(()->new ResourceNotFoundException("Usuario no encontrado"));
         listaDeReproduccion.setUsuario(usuario);
+        List<Cancion> canciones = new ArrayList<>();
+        for (Integer i:listaDeReproduccionDTO.getCancionesId()){
+            canciones.add(cancionRepository.findById(i).get());
+        }
+        listaDeReproduccion.setCanciones(canciones);
         listaDeReproduccionRepository.save(listaDeReproduccion);
         emailService.sendSimpleMessage(usermail,"Nueva PlayList"," Tu nueva playlist facha.ad");
         return "/users/"+idUser+"/playlists/"+listaDeReproduccion.getIdPlaylist();

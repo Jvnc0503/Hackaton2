@@ -17,7 +17,7 @@ public class ListaDeReproduccionController {
         this.listaDeReproduccionService = listaDeReproduccionService;
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @GetMapping("/users/{idUser}/playlists")
     public ResponseEntity<List<ListaDeReproduccionDTO>> getUserPlaylists(@PathVariable Integer idUser) {
         return ResponseEntity.ok(listaDeReproduccionService.getUserPlaylists(idUser));
